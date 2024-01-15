@@ -51,10 +51,10 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                     //  sh "docker tag fake-flex-ui lekhi27/fake-flex-ui:latest "
-                       //sh "docker push lekhi27/fake-flex-ui:latest "
-                       //sh "docker tag fake-flex-api lekhi27/fake-flex-api:latest "
-                       //sh "docker push lekhi27/fake-flex-api:latest "
+                     //  sh "docker tag myflix-ui lekhi27/myflix-ui:latest "
+                       //sh "docker push lekhi27/myflix-ui:latest "
+                       //sh "docker tag myflix-api lekhi27/myflix-api:latest "
+                       //sh "docker push lekhi27/myflix-api:latest "
                         sh "docker-compose push"
                     }
                 }
@@ -62,15 +62,15 @@ pipeline {
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image lekhi27/fake-flex-api:latest > trivyimageapi.txt" 
-                sh "trivy image lekhi27/fake-flex-ui:latest > trivyimageapi.txt" 
+                sh "trivy image lekhi27/myflix-api:latest > trivyimageapi.txt" 
+                sh "trivy image lekhi27/myflix-ui:latest > trivyimageapi.txt" 
             }
         }
         stage('Deploy to Container') {
             steps {
                 script {
-                    sh 'docker run -d --name ui -p 3000:3000 lekhi27/fake-flex-ui:latest'
-                    sh 'docker run -d --name api -p 4000:4000 lekhi27/fake-flex-api:latest'
+                    sh 'docker run -d --name ui -p 3000:3000 lekhi27/myflix-ui:latest'
+                    sh 'docker run -d --name api -p 4000:4000 lekhi27/myflix-api:latest'
                 }
             }
         }
