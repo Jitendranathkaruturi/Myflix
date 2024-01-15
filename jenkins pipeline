@@ -69,8 +69,8 @@ pipeline {
         stage('Deploy to Container') {
             steps {
                 script {
-                    sh 'docker run -d --name ui -p 3000:3000 lekhi27/myflix-ui:latest'
-                    sh 'docker run -d --name api -p 4000:4000 lekhi27/myflix-api:latest'
+                    sh 'docker run -d --name ui -p 3000:3000 lekhi27/fake-flex-ui:latest'
+                    sh 'docker run -d --name api -p 4000:4000 lekhi27/fake-flex-api:latest'
                 }
             }
         }
