@@ -63,7 +63,7 @@ pipeline {
         stage("TRIVY"){
             steps{
                 sh "trivy image lekhi27/myflix-api:latest > trivyimageapi.txt" 
-                sh "trivy image lekhi27/myflix-ui:latest > trivyimageapi.txt" 
+                sh "trivy image lekhi27/myflix-ui:latest > trivyimageui.txt" 
             }
         }
         stage('Deploy to Container') {
@@ -76,15 +76,17 @@ pipeline {
         }
         
     }
-    post {
+     post {
         always {
             // This post section will run after all stages, regardless of success or failure
 
-            emailext subject: "Your Build ${currentBuild.result}",
+                emailext attachLog: true,
+ 		      subject: "Your Build ${currentBuild.result}",
                       body: "Check the build console output at ${BUILD_URL} to view the results.",
                       to: 'lekhikakj@gmail.com',
                       replyTo: 'lekhikakj@gmail.com',
-                      mimeType: 'text/html'
+                      mimeType: 'text/html',
+		      attachmentsPattern: 'trivyfs.txt,trivyimageapi.txt,trivyimageui.txt'
         }
     }
 }
