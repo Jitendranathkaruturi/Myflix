@@ -6,7 +6,6 @@ import BackgroundImage from '../components/BackgroundImage';
 import Header from '../components/header';
 import { firebaseAuth } from '../utils/firebase-config'
 
-
 export default function Login() {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
